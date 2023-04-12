@@ -16,8 +16,10 @@ Model Performances: *TBD*
 ## Repo-Struktur:
 * /datasets: Datensets (Gesamt, Train-Split, Test-Split)  
 * /preparation: Skripte zur Vorbereitung der Daten bzw. zum Zusammenfügen der Datensets  
+* /scalers: joblib dumps der Scaler für die Unfallzahlen für jede Wetterstation
 * /training: Training der Modelle
-* /modelle: Checkpoints und full_saves der Modelle  
+* /models: Checkpoints und full_saves der Modelle  
 * /prediction: Prediction des Test-Splits und Vergleich der Algorithmen mit der MSE Metrik
+
 
 
