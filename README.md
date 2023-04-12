@@ -1,2 +1,15 @@
 # machine-learning-projekt
-Repository für die ABGABE des ML Projekts (BITTE NUR DAS EINZIG WAHRE DATENSET, KEINE ZWISCHENSTÄNDE)
+**KEINE DATENSETS, NUR DAS EINZIG WAHRE, WENN ES FERTIG IST**
+
+Repository für das Machine Learning Projekt
+
+Titel: Vorhersage von Unfallzahlen mit Wetterdaten und Auslastungsdaten
+
+Langbeschreibung: *TBD*
+
+Rohdatensets: *TBD*
+
+Algorithmen: Neuronales Netz & Random Forest
+
+Model Performances: *TBD*
+
