@@ -14,17 +14,17 @@ df = read_csv("../datasets/accidents_small.csv",
 print(df.describe())
 
 # Split into variables and target
-X = df.drop('Anzahl_Unfälle', axis=1)
-y = df['Anzahl_Unfälle']
+X = df.drop('accidents', axis=1)
+y = df['accidents']
 
 # Split into train and test dataset and save to csv
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2)
 
-X_train.to_csv("../datasets/accidents_small_X_train.csv")
-X_test.to_csv("../datasets/accidents_small_X_test.csv")
-y_train.to_csv("../datasets/accidents_small_y_train.csv")
-y_test.to_csv("../datasets/accidents_small_y_test.csv")
+X_train.to_csv("../datasets/accidents_small_X_train.csv", index=None)
+X_test.to_csv("../datasets/accidents_small_X_test.csv", index=None)
+y_train.to_csv("../datasets/accidents_small_y_train.csv", index=None)
+y_test.to_csv("../datasets/accidents_small_y_test.csv", index=None)
 
 # Sequential Model with 3 Hidden Layers and relu activation
 model = Sequential()
@@ -48,7 +48,7 @@ history = model.fit(X_train, y_train,
 
 
 # save the model to a file
-model.save('../models/accidents_small_model')
+model.save('../models/accidents_small_model_nn')
 
 
 # plot the training and validation accuracy and loss at each epoch

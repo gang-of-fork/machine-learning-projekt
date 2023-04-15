@@ -4,14 +4,15 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from pandas import read_csv
 from keras.models import load_model
+from joblib import load
 # load datasets
 X_test = read_csv('../datasets/accidents_small_X_test.csv')
 y_test = read_csv('../datasets/accidents_small_y_test.csv')
 
 # load models
-nn_model = load_model('../models/accidents_small_model')
+nn_model = load_model('../models/accidents_small_model_nn')
 # TODO load rf model
-rf_model = None
+rf_model = load('../models/accidents_small_model_rf.bin')
 
 
 # mae / mse for neural network
