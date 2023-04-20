@@ -9,15 +9,15 @@ from keras.optimizers import Adam
 
 
 # load datasets
-X_train = read_csv('../datasets/accidents_small_X_train.csv')
-y_train = read_csv('../datasets/accidents_small_y_train.csv')
+X_train = read_csv('../datasets/temp/accidents_small_X_train.csv')
+y_train = read_csv('../datasets/temp/accidents_small_y_train.csv')
 
 # Sequential Model with 3 Hidden Layers and relu activation
 model = Sequential()
 model.add(Dense(32, input_dim=X_train.shape[1], activation='relu'))
 model.add(Dense(32, activation='relu'))
 # Output layer
-model.add(Dense(1, activation='relu'))
+model.add(Dense(1, activation='linear'))
 
 model.compile(loss='mean_squared_error', optimizer=Adam(learning_rate=0.0003),
               metrics=[MeanAbsoluteError()])
@@ -29,7 +29,7 @@ csv_logger = CSVLogger(
 
 # train the model
 history = model.fit(X_train, y_train,
-                    validation_split=0.2, epochs=100, batch_size=64, callbacks=[csv_logger])
+                    validation_split=0.2, epochs=50, batch_size=64, callbacks=[csv_logger])
 
 
 # save the model to a file

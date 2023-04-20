@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from random import randint
 
 
+RESCALE_ACCIDENTS = True
+
 dataset = read_csv('../datasets/accidents_small_unscaled_90.csv',
                    delimiter=',')
 
@@ -30,36 +32,9 @@ def transform_hours_4h(row):
     return row
 
 
-def transform_hours_6h(row):
-    hour = row["hour"]
-    if 4 <= hour <= 9:
-        row["hour"] = 0
-    if 10 <= hour <= 15:
-        row["hour"] = 1
-    if 16 <= hour <= 21:
-        row["hour"] = 2
-    if 22 <= hour <= 23 & 0 <= hour <= 3:
-        row["hour"] = 3
-    return row
-
-
 dataset = dataset.apply(transform_hours_4h, axis=1)
 dataset = dataset.groupby(['weather_station', 'month', 'day', 'hour']).agg(
     {'temperature': 'mean', 'percipitation': 'mean', 'road_usage': 'mean', 'accidents': 'sum'}).reset_index()
-
-# print('distribution of accidents')
-# print(dataset['accidents'].value_counts(), '\n')
-
-# columns_to_delete = dataset[(dataset['accidents'] == 0) & (
-#    dataset.reset_index().index % 8 != 0)].index
-# dataset = dataset.drop(columns_to_delete)
-
-# columns_to_delete = dataset[(dataset['accidents'] == 1) & (
-#    dataset.reset_index().index % 2 != 0)].index
-# dataset = dataset.drop(columns_to_delete)
-
-# print('distribution of accidents after equalizing')
-# print(dataset['accidents'].value_counts())
 
 
 # extract distinct weather_station ids
@@ -94,8 +69,9 @@ percipitation_scaler = StandardScaler().fit(
 
 def transformRow(row):
     # scale features
-    # row["accidents"] = scaler_per_weatherstation_dict[row["weather_station"]
-    #                                                  ].transform([[row["accidents"]]])
+    if RESCALE_ACCIDENTS:
+        row["accidents_scaled"] = scaler_per_weatherstation_dict[row["weather_station"]
+                                                                 ].transform([[row["accidents"]]])[0][0]
 
     row["temperature"] = temperature_scaler.transform([[row["temperature"]]])
     row["percipitation"] = percipitation_scaler.transform(
@@ -114,17 +90,22 @@ dataset['sin_day'] = np.sin(2*np.pi*(dataset['day']-1)/7)
 dataset['cos_day'] = np.cos(2*np.pi*(dataset['day']-1)/7)
 dataset = dataset.drop('day', axis=1)
 
-
+X = None
+y = None
 # Split into variables and target
-X = dataset.drop('accidents', axis=1)
-y = dataset['accidents']
+if RESCALE_ACCIDENTS:
+    X = dataset.drop('accidents_scaled', axis=1)
+    y = dataset['accidents_scaled']
+else:
+    X = dataset.drop('accidents', axis=1)
+    y = dataset['accidents']
 
 # Split into train and test dataset and save to csv
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2)
 
 X_test['weather_station'].to_csv(
-    '../datasets/accidents_small_weatherstations.csv', index=None)
+    '../datasets/temp/accidents_small_weatherstations.csv', index=None)
 
 # drop rows not needed for prediction
 X_train = X_train.drop(
@@ -135,26 +116,34 @@ X_test = X_test.drop(['weather_station', 'month',
 y_train = pd.DataFrame(y_train)
 
 
-print(y_train['accidents'].value_counts())
+# raw accidents needed for filtering
+X_train_accidents = pd.DataFrame(X_train['accidents'])
+X_train = X_train.drop('accidents', axis=1)
+X_test = X_test.drop('accidents', axis=1)
+
+
+print(X_train_accidents['accidents'].value_counts())
 print('equalizing distribution of accidents in the training sets')
 
-columns_to_delete = y_train[(y_train['accidents'] == 0) & (
-    y_train.reset_index().index % 6 != 0)].index
-X_train = X_train.drop(columns_to_delete)
-y_train = y_train.drop(columns_to_delete)
+rows_to_delete = X_train_accidents[(X_train_accidents['accidents'] == 0) & (
+    X_train_accidents.reset_index().index % 6 != 0)].index
+X_train_accidents = X_train_accidents.drop(rows_to_delete)
+X_train = X_train.drop(rows_to_delete)
+y_train = y_train.drop(rows_to_delete)
 
-columns_to_delete = y_train[(y_train['accidents'] == 1) & (
-    y_train.reset_index().index % 2 != 0)].index
-X_train = X_train.drop(columns_to_delete)
-y_train = y_train.drop(columns_to_delete)
+rows_to_delete = X_train_accidents[(X_train_accidents['accidents'] == 1) & (
+    X_train_accidents.reset_index().index % 2 != 0)].index
+X_train_accidents = X_train_accidents.drop(rows_to_delete)
+X_train = X_train.drop(rows_to_delete)
+y_train = y_train.drop(rows_to_delete)
 
-print(y_train['accidents'].value_counts())
+print(X_train_accidents['accidents'].value_counts())
 
-X_train.to_csv("../datasets/accidents_small_X_train.csv", index=None)
-X_test.to_csv("../datasets/accidents_small_X_test.csv", index=None)
-y_train.to_csv("../datasets/accidents_small_y_train.csv", index=None)
-y_test.to_csv("../datasets/accidents_small_y_test.csv", index=None)
+X_train.to_csv("../datasets/temp/accidents_small_X_train.csv", index=None)
+X_test.to_csv("../datasets/temp/accidents_small_X_test.csv", index=None)
+y_train.to_csv("../datasets/temp/accidents_small_y_train.csv", index=None)
+y_test.to_csv("../datasets/temp/accidents_small_y_test.csv", index=None)
 
-dataset.to_csv('../datasets/accidents_small.csv', index=None)
+dataset.to_csv('../datasets/temp/accidents_small.csv', index=None)
 print(dataset.describe())
 print(dataset.corr())
