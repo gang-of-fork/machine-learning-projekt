@@ -21,5 +21,13 @@ Model Performances: *TBD*
 * /models: Checkpoints und full_saves der Modelle  
 * /prediction: Prediction des Test-Splits und Vergleich der Algorithmen mit der MSE Metrik
 
+## Aufteilung
+
+Robin: Skript aufräumen, Scaling der Unfälle, ggf. keras-tuning, Folien: Ergebnisse und Gegenüberstellung der Algorithmen
+
+Fynn: Skripte aufräumen, Webservice, Ausblick
+
+Steffen: Skripte aufräumen, Folie 1, Frontend 
+
 
 
