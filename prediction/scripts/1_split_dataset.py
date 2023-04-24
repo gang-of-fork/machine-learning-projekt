@@ -33,7 +33,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2)
 
 X_test['weather_station'].to_csv(
-    '../datasets/temp/accidents_weatherstations.csv', index=None)
+    '../datasets/accidents_weatherstations.csv', index=None)
 
 print('dropping weather_station...')
 X_train = X_train.drop('weather_station', axis=1)
@@ -77,10 +77,10 @@ print('dropping accidents from the datasets...')
 X_train = X_train.drop('accidents', axis=1)
 X_test = X_test.drop('accidents', axis=1)
 
-X_train.to_csv("../datasets/temp/accidents_X_train.csv", index=None)
-X_test.to_csv("../datasets/temp/accidents_X_test.csv", index=None)
-y_train.to_csv("../datasets/temp/accidents_y_train.csv", index=None)
-y_test.to_csv("../datasets/temp/accidents_y_test.csv", index=None)
+X_train.to_csv("../datasets/accidents_X_train.csv", index=None)
+X_test.to_csv("../datasets/accidents_X_test.csv", index=None)
+y_train.to_csv("../datasets/accidents_y_train.csv", index=None)
+y_test.to_csv("../datasets/accidents_y_test.csv", index=None)
 
 
 print(f'Execution Time: {datetime.now() - starttime }')

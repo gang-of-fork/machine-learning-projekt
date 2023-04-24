@@ -16,18 +16,18 @@ RESCALE_VALUES = True
 
 
 # load datasets
-X_test = read_csv('../datasets/temp/accidents_X_test.csv')
-y_test = read_csv('../datasets/temp/accidents_y_test.csv')
-X_train = read_csv('../datasets/temp/accidents_X_train.csv')
-y_train = read_csv('../datasets/temp/accidents_y_train.csv')
+X_test = read_csv('../datasets/accidents_X_test.csv')
+y_test = read_csv('../datasets/accidents_y_test.csv')
+X_train = read_csv('../datasets/accidents_X_train.csv')
+y_train = read_csv('../datasets/accidents_y_train.csv')
 weather_stations = read_csv(
-    '../datasets/temp/accidents_weatherstations.csv')
+    '../datasets/accidents_weatherstations.csv')
 
 # load models
 nn_model = load_model('../models/accidents_model_nn')
 rf_model = load('../models/accidents_model_rf.bin')
 
-dummy_model = DummyRegressor(strategy="mean")
+dummy_model = DummyRegressor(strategy="constant", constant=0)
 dummy_model.fit(X_train, y_train)
 # calculate predictions
 print("calculating predictions...")
@@ -64,23 +64,23 @@ y_test = np.round(y_test)
 mse_nn = mean_squared_error(y_test, y_pred_nn)
 mae_nn = mean_absolute_error(y_test, y_pred_nn)
 pd.DataFrame(y_pred_nn).to_csv(
-    '../datasets/temp/accidents_y_pred_nn.csv', index=None)
+    '../datasets/accidents_y_pred_nn.csv', index=None)
 
 # mae / mse for random forest
 mse_rf = mean_squared_error(y_test, y_pred_rf)
 mae_rf = mean_absolute_error(y_test, y_pred_rf)
 pd.DataFrame(y_pred_rf).to_csv(
-    '../datasets/temp/accidents_y_pred_rf.csv', index=None)
+    '../datasets/accidents_y_pred_rf.csv', index=None)
 
 # mae / mse for dummy
 mse_dummy = mean_squared_error(y_test, y_pred_dummy)
 mae_dummy = mean_absolute_error(y_test, y_pred_dummy)
 pd.DataFrame(y_pred_dummy).to_csv(
-    '../datasets/temp/accidents_y_pred_dummy.csv', index=None)
+    '../datasets/accidents_y_pred_dummy.csv', index=None)
 
 
 pd.DataFrame(y_test).to_csv(
-    '../datasets/temp/accidents_y_test_rescaled.csv', index=None)
+    '../datasets/accidents_y_test_rescaled.csv', index=None)
 
 print('Mean squared error from neural network: ', mse_nn)
 print('Mean squared error from random forest: ', mse_rf)

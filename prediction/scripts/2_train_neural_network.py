@@ -13,8 +13,8 @@ starttime = datetime.now()
 
 
 # load datasets
-X_train = read_csv('../datasets/temp/accidents_X_train.csv')
-y_train = read_csv('../datasets/temp/accidents_y_train.csv')
+X_train = read_csv('../datasets/accidents_X_train.csv')
+y_train = read_csv('../datasets/accidents_y_train.csv')
 
 # define Hypermodel
 
