@@ -29,5 +29,11 @@ Fynn: Skripte aufräumen, Webservice, Ausblick
 
 Steffen: Skripte aufräumen, Folie 1, Frontend 
 
+# Plots
+1. training ohne equalizing => equalizen
+2. training mit equalizing => mehr Daten und Hyperparameter-Optimierung
+3. optimal 64 64 training nach tuning => mehr Daten mit besserem Equalizing
+4. _64x64 mit besserem equalizing
+
 
 
