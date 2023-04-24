@@ -1,5 +1,4 @@
 # machine-learning-projekt
-**KEINE DATENSETS, NUR DAS EINZIG WAHRE, WENN ES FERTIG IST**
 
 Repository für das Machine Learning Projekt
 
@@ -23,11 +22,21 @@ Model Performances: *TBD*
 
 ## Aufteilung
 
-Robin: Skript aufräumen, Scaling der Unfälle, ggf. keras-tuning, Folien: Ergebnisse und Gegenüberstellung der Algorithmen
+Robin:  
+:white_check_mark: Skript aufräumen  
+:white_check_mark: Scaling der Unfälle  
+:white_check_mark: keras-tuning  
+:large_orange_diamond: Folien Ergebnisse und Gegenüberstellung der Algorithmen
 
-Fynn: Skripte aufräumen, Webservice, Ausblick
+Fynn:   
+:large_orange_diamond: Skripte aufräumen  
+:large_orange_diamond: Webservice  
+:large_orange_diamond: Ausblick
 
-Steffen: Skripte aufräumen, Folie 1, Frontend 
+Steffen:  
+:large_orange_diamond: Skripte aufräumen  
+:large_orange_diamond: Folie 1  
+:large_orange_diamond: Frontend   
 
 # Plots
 1. training ohne equalizing => equalizen
