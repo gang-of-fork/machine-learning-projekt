@@ -27,7 +27,7 @@ weather_stations = read_csv(
 nn_model = load_model('../models/accidents_model_nn')
 rf_model = load('../models/accidents_model_rf.bin')
 
-dummy_model = DummyRegressor(strategy="constant", constant=0)
+dummy_model = DummyRegressor(strategy="mean")
 dummy_model.fit(X_train, y_train)
 # calculate predictions
 print("calculating predictions...")

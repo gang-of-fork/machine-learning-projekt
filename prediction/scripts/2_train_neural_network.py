@@ -22,10 +22,10 @@ y_train = read_csv('../datasets/accidents_y_train.csv')
 def build_model(hp):
     # Sequential Model with 2 Hidden Layers and relu activation
     model = Sequential()
-    model.add(Dense(hp.Int('units_0', min_value=16, max_value=64,
-              step=16), input_dim=X_train.shape[1], activation='relu'))
-    model.add(Dense(hp.Int('units_1', min_value=16, max_value=64,
-              step=32), activation='relu'))
+    model.add(Dense(hp.Int('units_0', min_value=8, max_value=64,
+              step=8), input_dim=X_train.shape[1], activation='relu'))
+    model.add(Dense(hp.Int('units_1', min_value=8, max_value=64,
+              step=8), activation='relu'))
     # Output layer
     model.add(Dense(1, activation='linear'))
     model.compile(loss='mean_squared_error', optimizer=Adam(learning_rate=0.0001),
@@ -34,18 +34,13 @@ def build_model(hp):
 # model.summary()
 
 
-tuner = kt.Hyperband(build_model,
-                     objective='val_loss',
-                     max_epochs=25,
-                     factor=3,
-                     directory='../models',
-                     project_name='acc_avoid_tuning'
-                     )
-
-stop_early = EarlyStopping(monitor='val_loss', patience=5)
-
+tuner = kt.GridSearch(build_model,
+                      objective='val_loss',
+                      directory='../models',
+                      project_name='acc_avoid_tuning'
+                      )
 tuner.search(X_train, y_train, epochs=50,
-             validation_split=0.2, callbacks=[stop_early])
+             validation_split=0.2)
 
 best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
 print(f"""
