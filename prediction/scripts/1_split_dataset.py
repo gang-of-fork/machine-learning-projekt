@@ -18,12 +18,6 @@ print(dataset.corr())
 print("\nDistribution of accidents:")
 print(dataset['accidents'].value_counts())
 
-
-print('dropping month, sin_day, cos_day...')
-# drop columns not needed for prediction
-dataset = dataset.drop(
-    ['month', 'sin_day', 'cos_day'], axis=1)
-
 # Split into variables and target
 X = dataset.drop('accidents_scaled', axis=1)
 y = dataset['accidents_scaled']

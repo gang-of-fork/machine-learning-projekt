@@ -8,6 +8,7 @@ print('grouped plots')
 
 for column in ['hour', 'day', 'month']:
 
+    dataset.boxplot(column='accidents', by=column)
     dataset_grouped_by_hour = dataset.groupby([column]).mean().reset_index()
 
     x = dataset_grouped_by_hour[column]
@@ -19,6 +20,7 @@ for column in ['hour', 'day', 'month']:
     ax.scatter(x, y)
     ax.plot(x, y)
     plt.show()
+
 
 print('ungrouped plots')
 
