@@ -51,7 +51,7 @@ model = tuner.hypermodel.build(best_hps)
 
 # train the model
 history = model.fit(X_train, y_train,
-                    validation_split=0.2, epochs=50, batch_size=64)
+                    validation_split=0.2, epochs=100, batch_size=64)
 
 
 # save the model to a file

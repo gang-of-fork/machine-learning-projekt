@@ -47,25 +47,25 @@ print('equalizing distribution of accidents in the training sets')
 
 # only keep every 18th of the 0 accident datapoints
 rows_to_delete = X_train[(X_train['accidents'] == 0) & (
-    X_train.reset_index().index % 18 != 0)].index
+    X_train.reset_index().index % 10 != 0)].index
 X_train = X_train.drop(rows_to_delete)
 y_train = y_train.drop(rows_to_delete)
 
 # only keep every 7th of 1 accident datapoints
 rows_to_delete = X_train[(X_train['accidents'] == 1) & (
-    X_train.reset_index().index % 7 != 0)].index
+    X_train.reset_index().index % 5 != 0)].index
 X_train = X_train.drop(rows_to_delete)
 y_train = y_train.drop(rows_to_delete)
 
 # only keep every 3rd of 2 accident datapoints
 rows_to_delete = X_train[(X_train['accidents'] == 2) & (
-    X_train.reset_index().index % 3 != 0)].index
+    X_train.reset_index().index % 2 != 0)].index
 X_train = X_train.drop(rows_to_delete)
 y_train = y_train.drop(rows_to_delete)
 
 # only keep 50% of 3 accident datapoints
 rows_to_delete = X_train[(X_train['accidents'] == 3) & (
-    X_train.reset_index().index % 2 != 0)].index
+    X_train.reset_index().index % 1 != 0)].index
 X_train = X_train.drop(rows_to_delete)
 y_train = y_train.drop(rows_to_delete)
 

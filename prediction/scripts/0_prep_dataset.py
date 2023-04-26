@@ -18,18 +18,30 @@ dataset = read_csv('../datasets/accidents_raw.csv',
 
 def transform_hours_4h(row):
     hour = row["hour"]
-    if 0 <= hour <= 3:
+    if 0 <= hour <= 1:
         row["hour"] = 0
-    if 4 <= hour <= 7:
+    if 2 <= hour <= 3:
         row["hour"] = 1
-    if 8 <= hour <= 11:
+    if 4 <= hour <= 5:
         row["hour"] = 2
-    if 12 <= hour <= 15:
+    if 6 <= hour <= 7:
+        row["hour"] = 2
+    if 8 <= hour <= 9:
         row["hour"] = 3
-    if 16 <= hour <= 19:
+    if 10 <= hour <= 11:
         row["hour"] = 4
-    if 20 <= hour <= 23:
+    if 12 <= hour <= 13:
         row["hour"] = 5
+    if 14 <= hour <= 15:
+        row["hour"] = 0
+    if 16 <= hour <= 17:
+        row["hour"] = 1
+    if 18 <= hour <= 19:
+        row["hour"] = 2
+    if 20 <= hour <= 21:
+        row["hour"] = 3
+    if 22 <= hour <= 23:
+        row["hour"] = 4
     return row
 
 
