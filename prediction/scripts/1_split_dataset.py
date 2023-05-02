@@ -2,6 +2,7 @@ from pandas import read_csv
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 starttime = datetime.now()
 RESCALE_ACCIDENTS = True
@@ -65,16 +66,18 @@ y_train = y_train.drop(rows_to_delete)
 
 print('distribution of accidents in X_train:')
 print(X_train['accidents'].value_counts())
+X_train['accidents'].value_counts().plot.bar()
+plt.show()
 
 print('dropping accidents from the datasets...')
 
 X_train = X_train.drop('accidents', axis=1)
 X_test = X_test.drop('accidents', axis=1)
 
-X_train.to_csv("../datasets/accidents_X_train.csv", index=None)
-X_test.to_csv("../datasets/accidents_X_test.csv", index=None)
-y_train.to_csv("../datasets/accidents_y_train.csv", index=None)
-y_test.to_csv("../datasets/accidents_y_test.csv", index=None)
+# X_train.to_csv("../datasets/accidents_X_train.csv", index=None)
+# X_test.to_csv("../datasets/accidents_X_test.csv", index=None)
+# y_train.to_csv("../datasets/accidents_y_train.csv", index=None)
+# y_test.to_csv("../datasets/accidents_y_test.csv", index=None)
 
 
 print(f'Execution Time: {datetime.now() - starttime }')

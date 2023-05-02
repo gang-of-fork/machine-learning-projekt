@@ -31,12 +31,13 @@ if OPTIMIZE_HP:
     print(GridSearchRandomForest.cv_results_)
 
     model = RandomForestRegressor(n_estimators=GridSearchRandomForest.best_params_[
-                                'n_estimators'], max_depth=GridSearchRandomForest.best_params_['max_depth'], random_state=42)
+        'n_estimators'], max_depth=GridSearchRandomForest.best_params_['max_depth'], random_state=42)
     model.fit(X_train, ravel(y_train.to_numpy()))
 
     dump(model, '../models/accidents_model_rf.bin')
 else:
-    model = RandomForestRegressor(n_estimators=256, max_depth=6, random_state=42)
+    model = RandomForestRegressor(
+        n_estimators=256, max_depth=6, random_state=42)
     model.fit(X_train, ravel(y_train.to_numpy()))
 
     dump(model, '../models/accidents_model_rf.bin')
