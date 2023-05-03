@@ -23,15 +23,20 @@ def get_number_input(msg):
             val = int(input(msg))
 
             return val
+        except KeyboardInterrupt:
+            sys.exit()
         except:
             print("Bitte gib eine valide Zahl ein.")
 
 def get_number_input_in_range(msg, range_min, range_max):
-    val = get_number_input(msg)
+    while True:
+        val = get_number_input(msg)
 
-    if val < range_min or val < range_max:
-        print(f"Die Zahl ist nicht im Wertebereich von {range_min} bis {range_max}")
-        continue
+        if val < range_min or val > range_max:
+            print(f"Die Zahl ist nicht im Wertebereich von {range_min} bis {range_max}")
+            continue
+        
+        return val
 
 SELECTED_STATION = 617
 PREDICTION_MODE = "default"
@@ -62,8 +67,47 @@ if PREDICTION_MODE == "c":
             print("Wetterstation existiert nicht")
             sys.exit()
 
-SELECTED_MONTH = get_number_input_in_range()
-SELECTED_DAY = get_number_input_in_range()
-SELECTED_HOUR = get_number_input_in_range("2-Stunden-intervall 0 = 0-2, 1 = 2-4, ... (0 bis 5): ")
-SELECTED_TEMPERATURE = 0
-SELECTED_percipation = 0
+SELECTED_MONTH = get_number_input_in_range("Wochentag (1 bis 12): ", 1, 12)
+print("Sonntag = 1")
+print("Montag = 2")
+print("Dienstag = 3")
+print("Mittwoch = 4")
+print("...")
+SELECTED_DAY = get_number_input_in_range("Wochentag (1 bis 7): ", 1, 7)
+SELECTED_HOUR = get_number_input_in_range("2-Stunden-intervall 0 = 0-2, 1 = 2-4, ... (0 bis 11): ", 0, 11)
+SELECTED_TEMPERATURE = get_number_input("Temperatur: ")
+SELECTED_percipation = get_number_input("Niederschlag: ")
+
+print("sh = sehr hoch")
+print("h = hoch")
+print("m = mittel")
+print("n = niedrig")
+print("sn = sehr niedrig")
+
+selected_usage = "default"
+SELECTED_USAGE = 0
+
+
+while selected_usage not in ["sh", "h", "m", "n", "sn"]:
+    selected_usage = input("Auslastung (sh/h/m/n/sn): ")
+    if selected_usage not in ["sh", "h", "m", "n", "sn"]:
+        print("Bitte validen Wert eingeben")
+
+usage_map = {
+    "sh": 2,
+    "h": 1,
+    "m": 0,
+    "n": -1,
+    "sn": -2
+}
+
+SELECTED_USAGE = usage_map[selected_usage]
+
+"""
+SELECTED_MONTH
+SELECTED_DAY
+SELECTED_HOUR
+SELECTED_TEMPERATURE
+SELECTED_percipation
+SELECTED_USAGE
+"""
