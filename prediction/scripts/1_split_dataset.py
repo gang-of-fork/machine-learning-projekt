@@ -42,7 +42,7 @@ print('equalizing distribution of accidents in the training sets')
 
 # only keep every 18th of the 0 accident datapoints
 rows_to_delete = X_train[(X_train['accidents'] == 0) & (
-    X_train.reset_index().index % 10 != 0)].index
+    X_train.reset_index().index % 25 != 0)].index
 X_train = X_train.drop(rows_to_delete)
 y_train = y_train.drop(rows_to_delete)
 
@@ -67,17 +67,17 @@ y_train = y_train.drop(rows_to_delete)
 print('distribution of accidents in X_train:')
 print(X_train['accidents'].value_counts())
 X_train['accidents'].value_counts().plot.bar()
-plt.show()
+# plt.show()
 
 print('dropping accidents from the datasets...')
 
 X_train = X_train.drop('accidents', axis=1)
 X_test = X_test.drop('accidents', axis=1)
 
-# X_train.to_csv("../datasets/accidents_X_train.csv", index=None)
-# X_test.to_csv("../datasets/accidents_X_test.csv", index=None)
-# y_train.to_csv("../datasets/accidents_y_train.csv", index=None)
-# y_test.to_csv("../datasets/accidents_y_test.csv", index=None)
+X_train.to_csv("../datasets/accidents_X_train.csv", index=None)
+X_test.to_csv("../datasets/accidents_X_test.csv", index=None)
+y_train.to_csv("../datasets/accidents_y_train.csv", index=None)
+y_test.to_csv("../datasets/accidents_y_test.csv", index=None)
 
 
 print(f'Execution Time: {datetime.now() - starttime }')
