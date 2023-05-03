@@ -25,23 +25,23 @@ def transform_hours_2h(row):
     if 4 <= hour <= 5:
         row["hour"] = 2
     if 6 <= hour <= 7:
-        row["hour"] = 2
+        row["hour"] = 3
     if 8 <= hour <= 9:
-        row["hour"] = 3
+        row["hour"] = 4
     if 10 <= hour <= 11:
-        row["hour"] = 4
-    if 12 <= hour <= 13:
         row["hour"] = 5
+    if 12 <= hour <= 13:
+        row["hour"] = 6
     if 14 <= hour <= 15:
-        row["hour"] = 0
+        row["hour"] = 7
     if 16 <= hour <= 17:
-        row["hour"] = 1
+        row["hour"] = 8
     if 18 <= hour <= 19:
-        row["hour"] = 2
+        row["hour"] = 9
     if 20 <= hour <= 21:
-        row["hour"] = 3
+        row["hour"] = 10
     if 22 <= hour <= 23:
-        row["hour"] = 4
+        row["hour"] = 11
     return row
 
 
