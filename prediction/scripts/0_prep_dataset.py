@@ -13,29 +13,41 @@ dataset = read_csv('../datasets/accidents_raw.csv',
                    delimiter=',')
 
 
-# group by 4 hour cycles
+# group by 2 hour cycles
 
 
-def transform_hours_4h(row):
+def transform_hours_2h(row):
     hour = row["hour"]
-    if 0 <= hour <= 3:
+    if 0 <= hour <= 1:
         row["hour"] = 0
-    if 4 <= hour <= 7:
+    if 2 <= hour <= 3:
         row["hour"] = 1
-    if 8 <= hour <= 11:
+    if 4 <= hour <= 5:
         row["hour"] = 2
-    if 12 <= hour <= 15:
+    if 6 <= hour <= 7:
+        row["hour"] = 2
+    if 8 <= hour <= 9:
         row["hour"] = 3
-    if 16 <= hour <= 19:
+    if 10 <= hour <= 11:
         row["hour"] = 4
-    if 20 <= hour <= 23:
+    if 12 <= hour <= 13:
         row["hour"] = 5
+    if 14 <= hour <= 15:
+        row["hour"] = 0
+    if 16 <= hour <= 17:
+        row["hour"] = 1
+    if 18 <= hour <= 19:
+        row["hour"] = 2
+    if 20 <= hour <= 21:
+        row["hour"] = 3
+    if 22 <= hour <= 23:
+        row["hour"] = 4
     return row
 
 
 print("transforming and grouping by hours... (this may take a few minutes)")
 
-dataset = dataset.apply(transform_hours_4h, axis=1)
+dataset = dataset.apply(transform_hours_2h, axis=1)
 dataset = dataset.groupby(['weather_station', 'month', 'day', 'hour']).agg(
     {'temperature': 'mean', 'percipitation': 'mean', 'road_usage': 'mean', 'accidents': 'sum'}).reset_index()
 
@@ -85,15 +97,6 @@ def transformRow(row):
 
 print("transforming rows... (this may take a few minutes)")
 dataset = dataset.apply(transformRow, axis=1)
-
-# transform cyclic features
-dataset['sin_hour'] = np.sin(2*np.pi*dataset['hour']/6)
-dataset['cos_hour'] = np.cos(2*np.pi*dataset['hour']/6)
-dataset = dataset.drop('hour', axis=1)
-
-dataset['sin_day'] = np.sin(2*np.pi*(dataset['day']-1)/7)
-dataset['cos_day'] = np.cos(2*np.pi*(dataset['day']-1)/7)
-dataset = dataset.drop('day', axis=1)
 
 dataset.to_csv('../datasets/accidents.csv', index=None)
 

@@ -8,28 +8,38 @@ from datetime import datetime
 
 starttime = datetime.now()
 
+OPTIMIZE_HP = False
+
 X_train = read_csv('../datasets/accidents_X_train.csv')
 y_train = read_csv('../datasets/accidents_y_train.csv')
 
-param_grid = {
-    'n_estimators': [32, 64, 128, 256, 512],
-    'max_depth': [4, 6, 8, 10]
-}
+if OPTIMIZE_HP:
 
-GridSearchRandomForest = GridSearchCV(RandomForestRegressor(
-    random_state=42), param_grid=param_grid, cv=5, scoring='neg_mean_squared_error')
-GridSearchRandomForest.fit(X_train, ravel(y_train.to_numpy()))
+    param_grid = {
+        'n_estimators': [32, 64, 128, 256, 512],
+        'max_depth': [4, 6, 8, 10]
+    }
 
-print('Grid Search for Random Forest is complete. Best params are:')
-print(GridSearchRandomForest.best_params_)
-print('Score was:')
-print(GridSearchRandomForest.best_score_)
-print(GridSearchRandomForest.cv_results_)
+    GridSearchRandomForest = GridSearchCV(RandomForestRegressor(
+        random_state=42), param_grid=param_grid, cv=5, scoring='neg_mean_squared_error')
+    GridSearchRandomForest.fit(X_train, ravel(y_train.to_numpy()))
 
-model = RandomForestRegressor(n_estimators=GridSearchRandomForest.best_params_[
-                              'n_estimators'], max_depth=GridSearchRandomForest.best_params_['max_depth'], random_state=30)
-model.fit(X_train, ravel(y_train.to_numpy()))
+    print('Grid Search for Random Forest is complete. Best params are:')
+    print(GridSearchRandomForest.best_params_)
+    print('Score was:')
+    print(GridSearchRandomForest.best_score_)
+    print(GridSearchRandomForest.cv_results_)
 
-dump(model, '../models/accidents_model_rf.bin')
+    model = RandomForestRegressor(n_estimators=GridSearchRandomForest.best_params_[
+        'n_estimators'], max_depth=GridSearchRandomForest.best_params_['max_depth'], random_state=42)
+    model.fit(X_train, ravel(y_train.to_numpy()))
+
+    dump(model, '../models/accidents_model_rf.bin')
+else:
+    model = RandomForestRegressor(
+        n_estimators=256, max_depth=6, random_state=42)
+    model.fit(X_train, ravel(y_train.to_numpy()))
+
+    dump(model, '../models/accidents_model_rf.bin')
 
 print(f'Execution Time: {datetime.now() - starttime }')
