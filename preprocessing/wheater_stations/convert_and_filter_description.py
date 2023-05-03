@@ -18,7 +18,7 @@ for i, file in enumerate(listed_dir):
 
         txt_path = os.path.join(os.path.dirname(__file__), f"{file_name}.txt");
         csv_path = os.path.join(os.path.dirname(__file__), f"{file_name}.csv");
-        json_path = os.path.join(os.path.dirname(__file__), f"relevant_data_{file_type}.json");
+        json_path = os.path.join(os.path.dirname(__file__), "..", "output", "convert_and_filter_description", f"relevant_data_{file_type}.json");
 
         read_file = pd.read_csv(txt_path, delim_whitespace=True, skiprows=[1], usecols=range(0, 6));
 
