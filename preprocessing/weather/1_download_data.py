@@ -1,11 +1,12 @@
 #Script to download weatherdata from dwd website
+#!!!!! Before executing this script please follow instructions from preprocessing/datasets/wetter/README.txt !!!!!
 
 import json
 import os
 import requests 
 
 
-def downloadWeatherdata(url, filename, output):
+def downloadWeatherdata(url, filename, output): #function to download data and write zip file
     fobj = open(os.path.join(os.path.dirname(__file__), "..",  "output", "convert_and_filter_description", filename))
 
     data = json.loads("".join(fobj.readlines()))
@@ -38,7 +39,7 @@ def downloadWeatherdata(url, filename, output):
 
 if __name__ == "__main__":
     #download niederschlag
-    #downloadWeatherdata("https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/historical/", "relevant_data_RR.json", "niederschlag")
+    downloadWeatherdata("https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/precipitation/historical/", "relevant_data_RR.json", "niederschlag")
 
     #download temperatur
     downloadWeatherdata("https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/hourly/air_temperature/historical/", "relevant_data_TU.json", "temperatur")

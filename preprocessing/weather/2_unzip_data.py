@@ -4,6 +4,9 @@ import os
 import zipfile
 
 def unzipWeatherdata(input_dir):
+    """
+        Function to read zip folders from datasets and 
+    """
     base_path = os.path.join(os.path.dirname(__file__), "datasets", "wetter", input_dir)
     output_path = os.path.join(os.path.dirname(__file__), "datasets", "wetter_entpackt", input_dir)
 
