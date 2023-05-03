@@ -32,8 +32,6 @@ zaehlstationen_completeness_data = json.load(fobj)
 
 fobj.close()    
 
-
-
 weatherstation_countingstation_mapping_completeness = {}
 
 for ws in weatherstation_counting_station_mapping.keys():

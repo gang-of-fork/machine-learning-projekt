@@ -22,6 +22,9 @@ weather_data_df = pd.read_csv(weather_csv_path)
 """
 
 def get_possible_dates_in_month(month, weekday):
+    """
+        Get possible dates for a weekday in a month
+    """
     start = datetime.datetime(2019, month, 1)
     end = datetime.datetime(start.year + int(start.month / 12), ((start.month % 12) + 1), 1)
     num_of_days = (end - start).days
@@ -36,6 +39,9 @@ def get_possible_dates_in_month(month, weekday):
     return result
 
 def avg(lst):
+    """
+        util function to get average from a list
+    """
     if len(lst) == 0:
         #print("Err")
         return 0
@@ -43,6 +49,9 @@ def avg(lst):
     return round(sum(lst) / len(lst), 4)
 
 def get_average_usage(ausl):
+    """
+        function to get average usage from a list of usage values
+    """
     val = 0
 
     get_avg_station_ausl = lambda aus: avg([float(aus.split(":")[1]), float(aus.split(":")[2])])
@@ -53,6 +62,9 @@ def get_average_usage(ausl):
     return None
     
 def get_average_usage_values(ausl_values):
+    """
+        function to get average usage
+    """
     notNone = lambda x: x != None
 
     return list(filter(notNone, [ get_average_usage(a) for a in ausl_values ]))
@@ -66,7 +78,7 @@ if __name__ == "__main__":
     ctr = 0
     to_process = len(weather_data_df.STATIONS_ID.unique()) * 12 * 7 * 24
 
-    for ws in weather_data_df.STATIONS_ID.unique():
+    for ws in weather_data_df.STATIONS_ID.unique(): #iterate over weatherstations
         for month in range(1, 13): #iterate over months in year
             for day in range(1, 8): # iterate over weekdays in month
                 possible_dates = [ d.strftime("%Y%m%d") for d in get_possible_dates_in_month(month, day) ] #calc possible dates
