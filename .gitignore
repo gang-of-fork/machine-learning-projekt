@@ -129,4 +129,3 @@ dmypy.json
 .pyre/
 
 temp
-accidents_model_rf.bin
