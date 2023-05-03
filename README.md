@@ -14,10 +14,10 @@ Model Performances: *TBD*
 
 ## Repo-Struktur:
 * /datasets: Datensets (Gesamt, Train-Split, Test-Split)  
-* /preparation: Skripte zur Vorbereitung der Daten bzw. zum Zusammenfügen der Datensets  
-* /scalers: joblib dumps der Scaler für die Unfallzahlen für jede Wetterstation
+* /preprocessing: Skripte zur Vorbereitung der Daten bzw. zum Zusammenfügen der Datensets  
+* prediction/scalers: joblib dumps der Scaler für die Unfallzahlen für jede Wetterstation
 * /training: Training der Modelle
-* /models: Checkpoints und full_saves der Modelle  
+* prediction/models: Checkpoints und full_saves der Modelle  
 * /prediction: Prediction des Test-Splits und Vergleich der Algorithmen mit der MSE Metrik
 
 ## Aufteilung
@@ -29,13 +29,13 @@ Robin:
 :large_orange_diamond: Folien Ergebnisse und Gegenüberstellung der Algorithmen
 
 Fynn:   
-:large_orange_diamond: Skripte aufräumen  
+:white_check_mark: Skripte aufräumen  
 :large_orange_diamond: Webservice  
-:large_orange_diamond: Ausblick
 
 Steffen:  
 :large_orange_diamond: Skripte aufräumen  
 :large_orange_diamond: Folie 1  
+:large_orange_diamond: Ausblick
 :large_orange_diamond: Frontend   
 
 # Plots
