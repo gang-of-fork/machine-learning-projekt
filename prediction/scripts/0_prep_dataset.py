@@ -72,7 +72,7 @@ for weatherstation_id in weatherstation_ids:
 
     scaler = StandardScaler().fit(accident_counts)
 
-    # add the scaler to the mapping and save in the scalers directory for later use
+# add the scaler to the mapping and save in the scalers directory for later use
     scaler_per_weatherstation_dict[weatherstation_id] = scaler
     dump(scaler, f'../scalers/accident_scaler_{weatherstation_id}.bin')
 
@@ -81,6 +81,9 @@ temperature_scaler = StandardScaler().fit(
     dataset["temperature"].to_numpy().reshape(-1, 1))
 percipitation_scaler = StandardScaler().fit(
     dataset["percipitation"].to_numpy().reshape(-1, 1))
+
+dump(temperature_scaler, f'../scalers/temperature_scaler.bin')
+dump(percipitation_scaler, f'../scalers/percipitation_scaler.bin')
 
 # transform the remaining features
 
