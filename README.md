@@ -20,24 +20,6 @@ Model Performances: *TBD*
 * prediction/models: Checkpoints und full_saves der Modelle  
 * /prediction: Prediction des Test-Splits und Vergleich der Algorithmen mit der MSE Metrik
 
-## Aufteilung
-
-Robin:  
-:white_check_mark: Skript aufräumen  
-:white_check_mark: Scaling der Unfälle  
-:white_check_mark: keras-tuning  
-:large_orange_diamond: Folien Ergebnisse und Gegenüberstellung der Algorithmen
-
-Fynn:   
-:white_check_mark: Skripte aufräumen  
-:large_orange_diamond: Webservice  
-
-Steffen:  
-:large_orange_diamond: Skripte aufräumen  
-:large_orange_diamond: Folie 1  
-:large_orange_diamond: Ausblick
-:large_orange_diamond: Frontend   
-
 # Plots
 1. training ohne equalizing => equalizen
 2. training mit equalizing => mehr Daten und Hyperparameter-Optimierung
